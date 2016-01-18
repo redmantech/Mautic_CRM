@@ -1,0 +1,16 @@
+
+#taskTab .tasks {
+    overflow: hidden;
+    height: auto;
+    position: relative;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.tasks-block .panel-title {
+    float: left;
+}
+
+.tasks-block .btn.btn-primary {
+    margin-top: 4px;
+}

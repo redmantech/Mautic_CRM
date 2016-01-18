@@ -1,0 +1,11 @@
+.opportunities {
+    overflow: hidden;
+    height: auto;
+    position: relative;
+    padding: 0px;
+    list-style-type: none;
+}
+
+.opportunities li > .panel > .panel-body > .col-xs-1 {
+    vertical-align: middle;
+}
