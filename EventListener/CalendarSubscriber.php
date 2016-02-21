@@ -6,6 +6,7 @@ use Mautic\CalendarBundle\CalendarEvents;
 use Mautic\CalendarBundle\Event\CalendarGeneratorEvent;
 use Mautic\CoreBundle\EventListener\CommonSubscriber;
 use Mautic\CoreBundle\Helper\DateTimeHelper;
+use MauticPlugin\CustomCrmBundle\Entity\Task;
 
 class CalendarSubscriber extends CommonSubscriber
 {
@@ -30,6 +31,7 @@ class CalendarSubscriber extends CommonSubscriber
         $events = array();
         // All tasks
         foreach ($tasks as $task) {
+            /** @var Task $task */
             $events[] = array(
                 'start' => (new DateTimeHelper($task->getDateAdded()))->toLocalString(\DateTime::ISO8601),
                 'url'   => $router->generate('mautic_lead_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
@@ -40,10 +42,7 @@ class CalendarSubscriber extends CommonSubscriber
                 ),
                 'iconClass' => 'fa fa-fw fa-tasks'
             );
-        }
 
-        // Completed tasks
-        foreach ($tasks as $task) {
             if ($task->getIsCompleted()) {
                 $events[] = array(
                     'start' => (new DateTimeHelper($task->getDateCompleted()))->toLocalString(\DateTime::ISO8601),
@@ -54,6 +53,17 @@ class CalendarSubscriber extends CommonSubscriber
                         )
                     ),
                     'iconClass' => 'fa fa-fw fa-check'
+                );
+            } else if ($task->getDueDate()) {
+                $events[] = array(
+                    'start' => (new DateTimeHelper($task->getDueDate()))->toLocalString(\DateTime::ISO8601),
+                    'url'   => $router->generate('mautic_lead_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
+                    'title' => $this->factory->getTranslator()->trans('ddi.lead_actions.tasks.calendar.due_date',
+                        array(
+                            '%name%' => $task->getName()
+                        )
+                    ),
+                    'iconClass' => 'fa fa-fw fa-clock-o'
                 );
             }
         }

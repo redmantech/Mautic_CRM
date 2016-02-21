@@ -74,7 +74,7 @@ return array(
             'items'    => array(
                 'customcrm.crm' => array(
                     'id'        => 'menu_crm_parent',
-                    'iconClass' => 'fa-user',
+                    'iconClass' => 'fa-check-square',
                     'children'  => array(
                         'customcrm.opportunities' => array(
                             'route' => 'mautic_customcrm_opportunity_index'

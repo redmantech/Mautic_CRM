@@ -42,11 +42,6 @@ class OpportunityModel extends FormModel
 
     public function saveEntity($entity, $unlock = true)
     {
-        if ($entity->getId()) {
-            $this->em->flush();
-            return;
-        }
-
         if (!$entity instanceof Opportunity) {
             throw new \InvalidArgumentException('entity is not an instance of Opportunity');
         }
