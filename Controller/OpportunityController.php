@@ -122,11 +122,10 @@ class OpportunityController extends FormController
         $opportunityCounts = (!empty($listIds)) ? $model->getRepository()->getOpportunityCount($listIds) : array();
 
         $leadModel = $this->factory->getModel('lead.lead');
-        $leadModel->getEntities(array_map(function($item) {
-            return $item->getLead()->getId();
-        }, $items->getQuery()->getResult()));
-
-        $items->getQuery()->getResult();
+        foreach ($items as $item) {
+            $fields =  $leadModel->getRepository()->getFieldValues($item->getLead()->getId());
+            $item->getLead()->setFields($fields);
+        }
 
         $parameters = array(
             'items'       => $items,
