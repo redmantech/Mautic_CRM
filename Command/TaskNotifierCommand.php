@@ -25,6 +25,11 @@ class TaskNotifierCommand extends ModeratedCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        if (!$this->checkRunStatus($input, $output, 'all')) {
+
+            return 0;
+        }
+
         $container  = $this->getContainer();
         /** @var MauticFactory $factory */
         $factory    = $container->get('mautic.factory');
@@ -36,11 +41,13 @@ class TaskNotifierCommand extends ModeratedCommand
         $repo       = $taskModel->getRepository();
         /** @var Task[] $tasks */
         $tasks      = $repo->getOpenTasks(new \DateTime());
+        $taskCount = count($tasks);
         $grouped    = array();
         $users      = array();
 
+        $output->writeln("<info>Tasks to process: $taskCount</info>");
+
         foreach ($tasks as $key => $task) {
-            var_dump($task->getId());
             $users[$task->getAssignUser()->getId()] = $task->getAssignUser();
             $grouped[$task->getAssignUser()->getId()][] = $task;
             $fields =  $leadModel->getRepository()->getFieldValues($task->getLead()->getId());
@@ -48,10 +55,13 @@ class TaskNotifierCommand extends ModeratedCommand
             unset($tasks[$key]);
         }
 
+        if ($taskCount) {
+            $output->writeln("<comment>Sending emails ...</comment>");
+        }
+
         foreach ($grouped as $id => $tasks)
         {
             $user = $users[$id];
-            $taskCount = count($tasks);
             if ($taskCount == 1) {
                 $subject = 'One task is due today';
             } else {
@@ -78,6 +88,18 @@ class TaskNotifierCommand extends ModeratedCommand
                 $task->setNotified(true);
             }
             $factory->getEntityManager()->flush($tasks);
+
+            if ($taskCount) {
+                $output->writeln(sprintf(
+                    "<info>Emails sent: %s</info>",
+                    count($grouped)
+                    )
+                );
+            }
         }
+
+        $this->completeRun();
+
+        return 0;
     }
 }
