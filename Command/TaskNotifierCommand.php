@@ -39,8 +39,9 @@ class TaskNotifierCommand extends ModeratedCommand
         $taskModel  = $factory->getModel('plugin.customCrm.task');
         /** @var TaskRepository $repo */
         $repo       = $taskModel->getRepository();
+        $currentDate = new \DateTime();
         /** @var Task[] $tasks */
-        $tasks      = $repo->getOpenTasks(new \DateTime());
+        $tasks      = $repo->getOpenTasks($currentDate);
         $taskCount = count($tasks);
         $grouped    = array();
         $users      = array();
@@ -85,7 +86,7 @@ class TaskNotifierCommand extends ModeratedCommand
             $mailer->setSubject($subject);
             $mailer->send();
             foreach ($tasks as $task) {
-                $task->setNotified(true);
+                $task->setNotifiedDate($currentDate);
             }
             $factory->getEntityManager()->flush($tasks);
 

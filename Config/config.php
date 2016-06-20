@@ -4,7 +4,7 @@ return array(
     'name'        => 'Redman Mautic CRM',
     'description' => 'Task & Opportunity for mautic',
     'author'      => 'Redman Technologies Inc',
-    'version'     => '1.0.3',
+    'version'     => '1.0.4',
 
     'routes'   => array(
         'main' => array(

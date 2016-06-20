@@ -12,7 +12,7 @@ class Task
 
     protected $isCompleted = 0;
 
-    protected $notified = false;
+    protected $notifiedDate;
 
     protected $name;
 
@@ -58,8 +58,9 @@ class Task
             ->columnName('is_completed')
             ->build();
 
-        $builder->createField('notified', 'boolean')
-            ->columnName('notified')
+        $builder->createField('notifiedDate', 'date')
+            ->columnName('notified_date')
+            ->nullable()
             ->build();
 
         $builder->createField('dateAdded', 'datetime')
@@ -209,23 +210,22 @@ class Task
     }
 
     /**
-     * @param $notified
+     * @param $notifiedDate
      * @return $this
      */
-    public function setNotified($notified)
+    public function setNotifiedDate(\DateTime $notifiedDate)
     {
-        $this->notified = $notified;
+        $this->notifiedDate = $notifiedDate;
 
         return $this;
     }
 
     /**
-     * @param $notified
      * @return bool
      */
-    public function getNotified()
+    public function getNotifiedDate()
     {
-        return $this->notified;
+        return $this->notifiedDate;
     }
 
 }

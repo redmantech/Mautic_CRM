@@ -2,7 +2,7 @@
 <body>
     <h3>Hey <?php echo $user->getName() ?>,</h3>
 
-    The following tasks are assigned to you and due today:
+    The following tasks are assigned to you and due this week:
 
     <ul>
     <?php foreach ($tasks as $task): ?>
