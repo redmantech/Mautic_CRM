@@ -11,7 +11,7 @@ class OpportunityController extends FormController
     public function indexAction($page = 1)
     {
         /** @var \MauticPlugin\CustomCrmBundle\Model\OpportunityModel $model */
-        $model = $this->factory->getModel('plugin.customCrm.opportunity');
+        $model = $this->factory->getModel('customcrm.opportunity');
 
         //set what page currently on so that we can return here after form submission/cancellation
         $this->factory->getSession()->set('customcrm.opportunity.page', $page);
@@ -152,7 +152,7 @@ class OpportunityController extends FormController
     public function newAction()
     {
         /** @var \MauticPlugin\CustomCrmBundle\Model\OpportunityModel $model */
-        $model = $this->factory->getModel('plugin.customCrm.opportunity');
+        $model = $this->factory->getModel('customcrm.opportunity');
 
         //set the page we came from
         $page       = $this->factory->getSession()->get('mautic.opportunity.page', 1);
@@ -242,7 +242,7 @@ class OpportunityController extends FormController
     public function editAction($objectId)
     {
         /** @var \MauticPlugin\CustomCrmBundle\Model\OpportunityModel $model */
-        $model = $this->factory->getModel('plugin.customCrm.opportunity');
+        $model = $this->factory->getModel('customcrm.opportunity');
 
         //set the page we came from
         $page       = $this->factory->getSession()->get('mautic.opportunity.page', 1);
@@ -351,7 +351,7 @@ class OpportunityController extends FormController
 
         if ($this->request->getMethod() == 'POST') {
             /** @var \MauticPlugin\CustomCrmBundle\Model\OpportunityModel $model */
-            $model  = $this->factory->getModel('plugin.customCrm.opportunity');
+            $model  = $this->factory->getModel('customcrm.opportunity');
             $entity = $model->getEntity($objectId);
 
             if ($entity === null) {
@@ -399,7 +399,7 @@ class OpportunityController extends FormController
         );
 
         if ($this->request->getMethod() == 'POST') {
-            $model     = $this->factory->getModel('plugin.customCrm.opportunity');
+            $model     = $this->factory->getModel('customcrm.opportunity');
             $ids       = json_decode($this->request->query->get('ids', '{}'));
             $deleteIds = array();
 
@@ -442,7 +442,7 @@ class OpportunityController extends FormController
     public function quickAddAction($objectId)
     {
         /** @var \MauticPlugin\CustomCrmBundle\Model\OpportunityModel $model */
-        $model = $this->factory->getModel('plugin.customCrm.opportunity');
+        $model = $this->factory->getModel('customcrm.opportunity');
 
         if ($objectId) {
             // Get the quick add form

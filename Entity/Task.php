@@ -32,6 +32,9 @@ class Task
     {
         $builder = new ORM\Builder\ClassMetadataBuilder($metadata);
 
+        $builder->setTable('opportunities')
+            ->setCustomRepositoryClass('MauticPlugin\CustomCrmBundle\Entity\TaskRepository');
+
         $builder->setTable('tasks');
 
         $builder->createField('id', 'integer')

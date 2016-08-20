@@ -34,7 +34,7 @@ class CalendarSubscriber extends CommonSubscriber
             /** @var Task $task */
             $events[] = array(
                 'start' => (new DateTimeHelper($task->getDateAdded()))->toLocalString(\DateTime::ISO8601),
-                'url'   => $router->generate('mautic_lead_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
+                'url'   => $router->generate('mautic_contact_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
                 'title' => $this->factory->getTranslator()->trans('ddi.lead_actions.tasks.calendar.created',
                     array(
                         '%name%' => $task->getName()
@@ -46,7 +46,7 @@ class CalendarSubscriber extends CommonSubscriber
             if ($task->getIsCompleted()) {
                 $events[] = array(
                     'start' => (new DateTimeHelper($task->getDateCompleted()))->toLocalString(\DateTime::ISO8601),
-                    'url'   => $router->generate('mautic_lead_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
+                    'url'   => $router->generate('mautic_contact_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
                     'title' => $this->factory->getTranslator()->trans('ddi.lead_actions.tasks.calendar.completed',
                         array(
                             '%name%' => $task->getName()
@@ -57,7 +57,7 @@ class CalendarSubscriber extends CommonSubscriber
             } else if ($task->getDueDate()) {
                 $events[] = array(
                     'start' => (new DateTimeHelper($task->getDueDate()))->toLocalString(\DateTime::ISO8601),
-                    'url'   => $router->generate('mautic_lead_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
+                    'url'   => $router->generate('mautic_contact_action', array('objectAction' => 'view', 'objectId' => $task->getLead()->getId()), true),
                     'title' => $this->factory->getTranslator()->trans('ddi.lead_actions.tasks.calendar.due_date',
                         array(
                             '%name%' => $task->getName()
@@ -68,7 +68,7 @@ class CalendarSubscriber extends CommonSubscriber
             }
         }
 
-        foreach ($this->factory->getModel('plugin.customCrm.opportunity')->getEntities() as $opportunity) {
+        foreach ($this->factory->getModel('customcrm.opportunity')->getEntities() as $opportunity) {
             $events[] = array(
                 'start' => (new DateTimeHelper($opportunity->getDateAdded()))->toLocalString(\DateTime::ISO8601),
                 'url'   => $router->generate('mautic_customcrm_opportunity_action', array('objectAction' => 'edit', 'objectId' => $opportunity->getId()), true),

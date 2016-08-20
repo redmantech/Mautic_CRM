@@ -51,7 +51,7 @@ $listCommand = $view['translator']->trans('customcrm.opportunity.searchcommand.l
                     </td>
                     <td class="visible-md visible-lg">
                         <?php if ($item->getLead()): ?>
-                            <a href="<?php echo $view['router']->generate('mautic_lead_action', array(
+                            <a href="<?php echo $view['router']->generate('mautic_contact_action', array(
                                         'objectAction' => 'view',
                                         'objectId' => $item->getLead()->getId()
                                     )); ?>" alt="<?php echo $item->getLead()->getName() ?>">

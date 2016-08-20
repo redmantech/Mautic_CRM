@@ -9,7 +9,7 @@ class CampaignEventHelper
 {
     static public function createOpportunity(MauticFactory $factory, $lead, $event)
     {
-        $model = $factory->getModel('plugin.customCrm.opportunity');
+        $model = $factory->getModel('customCrm.opportunity');
         $opportunity = new Opportunity();
         $opportunity->setStatus($event['properties']['status']);
         $opportunity->setConfidence($event['properties']['confidence']);

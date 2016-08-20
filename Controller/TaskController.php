@@ -170,7 +170,7 @@ class TaskController extends FormController
     public function newAction($leadId)
     {
         $task = new Task();
-        $model  = $this->factory->getModel('plugin.customCrm.task');
+        $model  = $this->factory->getModel('customcrm.task');
         $action = $this->generateUrl('mautic_task_action', array(
                 'objectAction' => 'new',
                 'objectId'       => $leadId)
@@ -274,7 +274,7 @@ class TaskController extends FormController
         $type = $this->request->get('type', $session->get('ddi.lead_actions.task.form.type', ''));
         $session->set('ddi.lead_actions.task.form.type', $type);
 
-        $model  = $this->factory->getModel('plugin.customCrm.task');
+        $model  = $this->factory->getModel('customcrm.task');
         $task = $model->getEntity($objectId);
         $action = $this->generateUrl('mautic_task_action', array(
                 'objectAction' => 'edit',

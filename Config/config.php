@@ -32,6 +32,24 @@ return array(
     ),
 
     'services' => array(
+
+        'models' =>  [
+            'mautic.customcrm.model.task' => [
+                'class' => 'MauticPlugin\CustomCrmBundle\Model\TaskModel',
+                'arguments' => [
+                    'mautic.factory'
+                ]
+            ],
+
+            'mautic.customcrm.model.opportunity' => [
+                'class' => 'MauticPlugin\CustomCrmBundle\Model\OpportunityModel',
+                'arguments' => [
+                    'mautic.factory'
+                ]
+            ],
+        ],
+
+
         'forms'   => array(
             'customcrm.form.type.opportunity' => array(
                 'class'     => 'MauticPlugin\CustomCrmBundle\Form\Type\OpportunityType',
@@ -50,6 +68,7 @@ return array(
                 'alias' => 'task'
             )
         ),
+
 
         'events' => array(
             'customcrm.opportunity.lead.subscriber' => array(

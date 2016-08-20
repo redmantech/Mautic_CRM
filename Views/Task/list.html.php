@@ -106,7 +106,7 @@ if ($tmpl == 'index')
                     </td>
                     <td class="visible-md visible-lg"><?php echo $item->getDueDate()->format('Y-m-d H:i'); ?></td>
                     <td class="visible-md visible-lg">
-                        <a href="<?php echo $view['router']->generate('mautic_lead_action',
+                        <a href="<?php echo $view['router']->generate('mautic_contact_action',
                             array('objectAction' => 'view',
                                 'objectId' => $item->getLead()->getId()
                             )); ?>" data-toggle="ajax">

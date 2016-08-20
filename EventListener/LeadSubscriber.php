@@ -24,7 +24,7 @@ class LeadSubscriber extends CommonSubscriber
 
     private function addOpportunityEvents(LeadTimelineEvent $event)
     {
-        $model = $this->factory->getModel('plugin.customCrm.opportunity');
+        $model = $this->factory->getModel('customcrm.opportunity');
 
         /** @var \MauticPlugin\CustomCrmBundle\Entity\Opportunity[] $opportunities */
         $opportunities = $model->getRepository()->findByLead($event->getLead());
@@ -32,7 +32,8 @@ class LeadSubscriber extends CommonSubscriber
         foreach ($opportunities as $opportunity) {
             $event->addEvent(array(
                 'event' => 'opportunity.created',
-                'eventLabel' => 'opportunity',
+                'eventLabel' => 'Opportunity created',
+                'eventType' => 'Opportunity created',
                 'timestamp' => $opportunity->getDateAdded(),
                 'extra' => array(
                     'opportunity' => '<a href="'. $this->factory->getRouter()->generate('mautic_customcrm_opportunity_action', array(
@@ -72,7 +73,8 @@ class LeadSubscriber extends CommonSubscriber
             foreach ($tasks as $task) {
                 $event->addEvent(array(
                     'event' => $eventTypeKeyCreated,
-                    'eventLabel' => 'task',
+                    'eventLabel' => 'Task created',
+                    'eventType' => 'Task created',
                     'timestamp' => $task->getDateAdded(),
                     'extra' => array(
                         'name' => $task->getName()

@@ -13,9 +13,15 @@ class CustomCrmBundle extends PluginBundleBase
         return 'MauticLeadBundle';
     }
 
-    static public function onPluginInstall(Plugin $plugin, MauticFactory $factory, $metadata = null)
+    /**
+     * @param Plugin $plugin
+     * @param MauticFactory $factory
+     * @param array $metadata
+     * @param null $installedSchema
+     */
+    static public function onPluginInstall(Plugin $plugin, MauticFactory $factory, $metadata = null, $installedSchema = null)
     {
-        if ($metadata !== null) {
+        if (is_array($metadata)) {
             foreach ($metadata as $key => $entity) {
                 /** @var \Doctrine\ORM\Mapping\ClassMetadata $entity */
                 if ($factory->getDatabase()->getSchemaManager()->tablesExist($entity->getTableName())) {
@@ -25,7 +31,5 @@ class CustomCrmBundle extends PluginBundleBase
 
             self::installPluginSchema($metadata, $factory);
         }
-
-        // Do other install stuff
     }
 }
