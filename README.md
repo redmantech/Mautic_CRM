@@ -1,3 +1,6 @@
+#This repository is no longer maintained.
+If anybody wants to maintain it let us know.
+
 # Mautic_CRM
 Plugin for Mautic to have task and opportunities 
 
