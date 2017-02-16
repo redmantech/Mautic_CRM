@@ -3,6 +3,7 @@
 namespace MauticPlugin\CustomCrmBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Mautic\UserBundle\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class Task
@@ -10,6 +11,8 @@ class Task
     protected $id;
 
     protected $isCompleted = 0;
+
+    protected $notifiedDate;
 
     protected $name;
 
@@ -37,6 +40,10 @@ class Task
 
         $builder->setTable('tasks');
 
+        $builder->setCustomRepositoryClass(
+            'MauticPlugin\CustomCrmBundle\Repository\TaskRepository'
+        );
+
         $builder->createField('id', 'integer')
             ->isPrimaryKey()
             ->generatedValue()
@@ -52,6 +59,11 @@ class Task
 
         $builder->createField('isCompleted', 'boolean')
             ->columnName('is_completed')
+            ->build();
+
+        $builder->createField('notifiedDate', 'date')
+            ->columnName('notified_date')
+            ->nullable()
             ->build();
 
         $builder->createField('dateAdded', 'datetime')
@@ -137,7 +149,7 @@ class Task
     }
 
     /**
-     * @return mixed
+     * @return User
      */
     public function getAssignUser()
     {
@@ -198,6 +210,25 @@ class Task
     public function setDateCompleted($dateCompleted)
     {
         $this->dateCompleted = $dateCompleted;
+    }
+
+    /**
+     * @param $notifiedDate
+     * @return $this
+     */
+    public function setNotifiedDate(\DateTime $notifiedDate)
+    {
+        $this->notifiedDate = $notifiedDate;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getNotifiedDate()
+    {
+        return $this->notifiedDate;
     }
 
 }

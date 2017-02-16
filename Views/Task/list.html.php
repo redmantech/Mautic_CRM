@@ -116,7 +116,7 @@ if ($tmpl == 'index')
                             <div class="small"><?php echo $item->getLead()->getSecondaryIdentifier(); ?></div>
                         </a>
                     </td>
-                    <td><?php echo $item->getAssignUser()->getFirstName() . ' ' . $item->getAssignUser()->getLastName(); ?></td>
+                    <td><?php echo $item->getAssignUser()->getName(); ?></td>
                     <td class="visible-md visible-lg"><?php echo $item->getId(); ?></td>
                 </tr>
             <?php } ?>

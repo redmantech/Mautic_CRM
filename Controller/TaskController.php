@@ -56,15 +56,10 @@ class TaskController extends FormController
 
         $tasks = $query->getQuery()->getResult();
 
-        // Connect leads to tasks
         $model = $this->factory->getModel('lead.lead');
-        $leads = $model->getEntities();
         foreach ($tasks as $task) {
-            foreach ($leads as $lead) {
-                if ($task->getLead()->getId() == $lead->getId()) {
-                    $task->setLead($lead);
-                }
-            }
+            $fields =  $model->getRepository()->getFieldValues($task->getLead()->getId());
+            $task->getLead()->setFields($fields);
         }
 
         $this->factory->getSession()->set('ddi.lead_actions.task.page', $page);
